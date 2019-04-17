@@ -12,12 +12,6 @@ public class CustomExpectedConditions {
     {
         private final By locator;
 
-        /**
-         * Creates a new ElementPresent instance.
-         *
-         * @param locator
-         *        the locator
-         */
         public ElementPresent(By locator)
         {
             this.locator = locator;

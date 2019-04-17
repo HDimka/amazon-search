@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeClass;
 
 import java.util.concurrent.TimeUnit;
 
-public class BaseTest {
+public abstract class BaseTest {
 
     private WebDriver driver;
     private static final String BASE_URL = "http://amazon.com";

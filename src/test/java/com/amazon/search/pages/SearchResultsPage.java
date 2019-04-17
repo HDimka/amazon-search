@@ -11,16 +11,15 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SearchResultsPage extends BasePage {
 
-
     private static Logger LOG = Logger.getLogger(HomePage.class);
     private WebDriver driver;
 
     private WebDriverWait wait;
 
     private final String searchIdLocator = "search";
-    private String brandLocator = ".//span[contains(@class,'a-checkbox-label')]/span[contains(.,'%s')]";
-    private String searchItemsLocator = "//div[contains(@class, 's-result-list')]/div[contains(@class, 's-result-item')]";
-    private String filteredSearchResultsLocator = "s-skipLinkTargetForMainSearchResults";
+    private final String brandXpathLocator = ".//span[contains(@class,'a-checkbox-label')]/span[contains(.,'%s')]";
+    private final String searchItemsXpathLocator = "//div[contains(@class, 's-result-list')]/div[contains(@class, 's-result-item')]";
+    private final String filteredSearchResultsIdLocator = "s-skipLinkTargetForMainSearchResults";
 
     public SearchResultsPage(WebDriver driver) {
         super(driver);
@@ -36,13 +35,13 @@ public class SearchResultsPage extends BasePage {
 
     @Step
     public int getSearchResultsItemsSize() {
-        return searchResultsPage.findElements(By.xpath(searchItemsLocator)).size();
+        return searchResultsPage.findElements(By.xpath(searchItemsXpathLocator)).size();
     }
 
     @Step
     public void selectBrand(String brand) {
         LOG.info(String.format("Selecting checkbox with brand %s", brand));
-        WebElement el = brandsSection.findElement(By.xpath(String.format(brandLocator, brand)));
+        WebElement el = brandsSection.findElement(By.xpath(String.format(brandXpathLocator, brand)));
         scrollIntoView(el);
         el.click();
         waitUntilFilteredSearchResultsAppeared();
@@ -59,7 +58,7 @@ public class SearchResultsPage extends BasePage {
     public void waitUntilFilteredSearchResultsAppeared() {
         wait = new WebDriverWait(driver, 5);
         LOG.info("Waiting until Filtered search results appeared");
-        wait.until(new CustomExpectedConditions.ElementPresent(By.id(filteredSearchResultsLocator)));
+        wait.until(new CustomExpectedConditions.ElementPresent(By.id(filteredSearchResultsIdLocator)));
     }
 
 }
