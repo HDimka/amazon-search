@@ -19,7 +19,7 @@ public class HomePage extends BasePage {
     }
 
     @FindBy(id = "twotabsearchtextbox")
-    public WebElement searchField;
+    private WebElement searchField;
 
     @Step
     public SearchResultsPage performSearch(String searchText) {

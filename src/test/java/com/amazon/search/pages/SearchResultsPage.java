@@ -28,10 +28,10 @@ public class SearchResultsPage extends BasePage {
 
 
     @FindBy(id = searchIdLocator)
-    public WebElement searchResultsPage;
+    private WebElement searchResultsPage;
 
     @FindBy(id = "brandsRefinements")
-    public WebElement brandsSection;
+    private WebElement brandsSection;
 
     @Step
     public int getSearchResultsItemsSize() {
