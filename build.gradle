@@ -1,0 +1,59 @@
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "io.qameta.allure:allure-gradle:2.3"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'io.qameta.allure'
+group 'com.search.amazon'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'io.qameta.allure', name: 'allure-java-commons', version: '2.0-BETA16'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    testCompile group: 'org.testng', name: 'testng', version: '6.11'
+    testCompile 'org.assertj:assertj-core:3.8.0'
+    testCompile 'io.github.bonigarcia:webdrivermanager:3.3.0'
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '2.1'
+}
+
+
+test {
+    useTestNG()
+    systemProperties System.properties
+}
+
+
+task chrome(type: Test) {
+    useTestNG(){
+        listeners << "com.amazon.search.framework.ScreenshotListener"
+    }
+    systemProperties['browser'] = 'chrome'
+}
+
+task firefox(type: Test) {
+    useTestNG(){
+        listeners << "com.amazon.search.framework.ScreenshotListener"
+    }
+    systemProperties['browser'] = 'firefox'
+}
+
+allure {
+    version = '2.2.1'
+    autoconfigure = true
+    aspectjweaver = true
+}
